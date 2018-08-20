@@ -1,0 +1,17 @@
+Rails.application.routes.draw do
+  devise_for :users
+  get 'top/index', to: 'top#index', as: 'tops'
+  resources :users, only: [:show, :edit, :update]
+  resources :groups, only: [:show, :edit, :update]
+  resources :questions, only: [:create, :show]
+  resources :answers, only: [:new, :create, :edit, :update]
+  resources :users do
+    collection do
+      get :search
+    end
+
+    member do
+      get :status
+    end
+  end
+end
